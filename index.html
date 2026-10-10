@@ -117,13 +117,16 @@ const P=[
 {id:11,n:"Men's running sneakers",c:"Fashion",u:14,w:.8,s:"Alibaba",r:4.3,k:10100,i:"👟"},
 {id:12,n:"Robot vacuum cleaner",c:"Home",u:68,w:3.4,s:"Made-in-China",r:4.5,k:2200,i:"🧹"}];
 P.forEach(p=>{const g=p.u*p.w*0+p.u*FX,sh=p.w*2.2*FX,d=(g+sh)*DUTY[p.c];p.p=Math.round((g+sh+d)*(1+VAT));p.o=Math.round(p.p*(1.25+(p.id%4)*.08));p.d=Math.round((1-p.p/p.o)*100)});
+const DEMO=P.slice();let LOADING=!!API;
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const ic=p=>p.img&&/^https:\/\//.test(p.img)?'<img src="'+esc(p.img)+'" alt="" loading="lazy" style="width:100%;height:100%;object-fit:cover">':p.i;
 let cat="",cart={},wish={},wl=false;
 const $=i=>document.getElementById(i),R=n=>"R"+Math.round(n).toLocaleString("en-ZA"),K=n=>n>=1000?(n/1000).toFixed(1)+"k":n;
-function card(p){return`<div class="p"><span class="dc">-${p.d}%</span><button class="hz ${wish[p.id]?"on":""}" onclick="hz(${p.id})">♥</button><div class="pi">${p.i}</div><div class="pb"><span class="src">via ${p.s}</span><div class="pn">${p.n}</div><div class="st">★ ${p.r} <span class="mu">· ${K(p.k)} sold</span></div><div><span class="pr">${R(p.p)}</span><span class="old">${R(p.o)}</span></div><div class="mu">Incl. shipping, duty & VAT</div><button onclick="add(${p.id})">Add to cart</button></div></div>`}
+function card(p){const id=esc(p.id);return`<div class="p">${p.d>0?`<span class="dc">-${p.d}%</span>`:""}<button class="hz ${wish[p.id]?"on":""}" onclick="hz('${id}')">♥</button><div class="pi">${ic(p)}</div><div class="pb"><span class="src">via ${esc(p.s)}</span><div class="pn">${esc(p.n)}</div>${p.r?`<div class="st">★ ${p.r} <span class="mu">· ${K(p.k)} sold</span></div>`:(p.a?`<div class="mu">Delivery ≈ ${esc(p.a)} days</div>`:"")}<div><span class="pr">${R(p.p)}</span>${p.o?`<span class="old">${R(p.o)}</span>`:""}</div><div class="mu">Incl. shipping, duty &amp; VAT</div><button onclick="add('${id}')">Add to cart</button></div></div>`}
 function show(){let l=P.filter(p=>(!cat||p.c===cat)&&(!wl||wish[p.id])&&p.n.toLowerCase().includes($("q").value.toLowerCase()));const s=$("so").value;
 l.sort((a,b)=>s=="pl"?a.p-b.p:s=="ph"?b.p-a.p:s=="rt"?b.r-a.r:s=="sd"?b.k-a.k:a.id-b.id);
-$("g").innerHTML=l.map(card).join("")||'<p class="mu">Nothing found.</p>';$("ttl").textContent=wl?"❤️ Your wishlist":cat||"Recommended for you";
-$("fl").innerHTML=[...P].sort((a,b)=>b.d-a.d).slice(0,6).map(card).join("");
+$("g").innerHTML=l.map(card).join("")||'<p class="mu">'+(LOADING?'Loading products… the first load can take up to a minute.':'Nothing found.')+'</p>';$("ttl").textContent=wl?"❤️ Your wishlist":cat||"Recommended for you";
+const fd=[...P].filter(p=>p.d>0).sort((a,b)=>b.d-a.d).slice(0,6);$("deals").style.display=fd.length?"":"none";$("fl").innerHTML=fd.map(card).join("");
 $("nav").innerHTML=['<a class="'+(cat?"":"on")+'" onclick="setCat(\'\')">All</a>'].concat(Object.keys(DUTY).map(c=>`<a class="${cat==c?"on":""}" onclick="setCat('${c}')">${c}</a>`)).join("")}
 function setCat(c){cat=c;wl=false;show();if(c)$("all").scrollIntoView()}
 function hz(id){wish[id]=!wish[id];show()}
@@ -134,7 +137,7 @@ function closeCart(){$("dr").classList.remove("on")}
 function draw(){const ids=Object.keys(cart);$("it").innerHTML="";
 if(!ids.length){$("it").innerHTML='<p class="mu">Your cart is empty.</p>';$("sm").innerHTML="";$("co").style.display="none";return}
 let sub=0;ids.forEach(id=>{const p=P.find(x=>x.id==id),q=cart[id];sub+=p.p*q;const d=document.createElement("div");d.className="ct";
-d.innerHTML=`<div class="pi">${p.i}</div><div style="flex:1"><div class="pn" style="min-height:0">${p.n}</div><b style="color:var(--ac)">${R(p.p*q)}</b></div><div class="qt"><button class="o" data-d="-1">−</button>${q}<button class="o" data-d="1">+</button></div>`;
+d.innerHTML=`<div class="pi">${ic(p)}</div><div style="flex:1"><div class="pn" style="min-height:0">${esc(p.n)}</div><b style="color:var(--ac)">${R(p.p*q)}</b></div><div class="qt"><button class="o" data-d="-1">−</button>${q}<button class="o" data-d="1">+</button></div>`;
 d.querySelectorAll("button").forEach(b=>b.onclick=()=>{cart[id]+=+b.dataset.d;if(cart[id]<=0)delete cart[id];upd();draw()});$("it").appendChild(d)});
 const dl=sub>=FREE?0:DEL,pc=Math.min(100,sub/FREE*100);
 $("sm").innerHTML=`<div class="sec"><div class="mu">${sub>=FREE?"🎉 Free local delivery unlocked":"Add "+R(FREE-sub)+" more for free local delivery"}</div><div class="pg"><div style="width:${pc}%"></div></div>
@@ -163,5 +166,11 @@ document.addEventListener("click",e=>{if(!e.target.closest(".aw"))al.style.displ
 $("ci").innerHTML=Object.keys(DUTY).map(c=>`<div onclick="setCat('${c}')"><span>${ICO[c]}</span>${c}</div>`).join("");
 let si=0;setInterval(()=>{const s=document.querySelectorAll(".sl"),d=document.querySelectorAll("#dots span");s[si].classList.remove("on");d[si].classList.remove("on");si=(si+1)%3;s[si].classList.add("on");d[si].classList.add("on")},4000);
 function tick(){const n=new Date(),e=new Date(n);e.setHours(23,59,59,999);let t=Math.floor((e-n)/1000);const f=v=>String(v).padStart(2,"0");$("cd").textContent=f(t/3600|0)+":"+f(t%3600/60|0)+":"+f(t%60)}
-tick();setInterval(tick,1000);show();
+async function loadCatalog(n=0){if(!API)return;
+try{const r=await fetch(API+"/api/products");const j=await r.json();
+if(j.mode!=="cj"){P.push(...DEMO);LOADING=false;show();return}
+if(j.loading&&!j.products.length){setTimeout(()=>loadCatalog(n),8000);return}
+P.length=0;j.products.forEach(x=>P.push({id:String(x.id),n:x.n,c:x.c,p:x.p,o:0,d:0,r:0,k:0,s:"China supplier",i:"📦",img:x.img,a:x.aging}));LOADING=false;show()}
+catch(e){if(n<6)setTimeout(()=>loadCatalog(n+1),8000);else{LOADING=false;$("g").innerHTML='<p class="mu">Could not load products. Please refresh the page.</p>'}}}
+tick();setInterval(tick,1000);if(API)P.length=0;show();loadCatalog();
 </script></body></html>
