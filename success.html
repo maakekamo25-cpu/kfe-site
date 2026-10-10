@@ -1,0 +1,11 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>KFE – Order received</title>
+<style>body{font:16px/1.5 system-ui,sans-serif;max-width:480px;margin:10vh auto;padding:0 16px;text-align:center;color:#161a21}h1{color:#0a8f55}a{color:#f4511e;font-weight:700}</style></head>
+<body><h1>✅ Thank you!</h1><p id="m">Confirming your payment…</p><p><a href="index.html">Continue shopping</a></p>
+<script src="config.js"></script>
+<script>
+const ref=new URLSearchParams(location.search).get("ref")||"",m=document.getElementById("m");
+if(!/^KFE-[A-Z0-9]{6,20}$/.test(ref)||typeof API_BASE==="undefined"||!API_BASE){m.textContent="Your order has been received."}
+else{let n=0;const t=async()=>{try{const j=await (await fetch(API_BASE+"/api/order/"+ref)).json();
+if(j.status==="PAID"){m.textContent="Payment confirmed. Order reference "+ref+". Keep your ID ready for delivery.";return}}catch(e){}
+if(++n<10)setTimeout(t,3000);else m.textContent="Order "+ref+" received. We will email you once payment is confirmed."};t()}
+</script></body></html>
