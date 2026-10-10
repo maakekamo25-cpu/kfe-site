@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>KFE – Kits FastExpress</title>
+<style>
+:root{--bg:#f2f3f5;--card:#fff;--tx:#161a21;--mu:#6a7380;--ac:#f4511e;--nv:#0f2b4a;--bd:#e3e6ea;--gr:#0a8f55;--ye:#ffb400;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px)}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0e1217;--card:#171d25;--tx:#eef1f5;--mu:#9aa5b5;--bd:#27303b;--nv:#0a1a2e}}
+:root[data-theme="dark"]{--bg:#0e1217;--card:#171d25;--tx:#eef1f5;--mu:#9aa5b5;--bd:#27303b;--nv:#0a1a2e}
+*{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:110px}
+body{margin:0;background:var(--bg);color:var(--tx);font:14px/1.4 system-ui,-apple-system,"Segoe UI",sans-serif;padding-bottom:calc(64px + env(safe-area-inset-bottom,0px))}
+button{font:inherit;cursor:pointer;border:0;border-radius:8px;padding:9px 14px;background:var(--ac);color:#fff;font-weight:700}
+button.o{background:transparent;color:var(--ac);border:1px solid var(--ac)}
+.ann{background:var(--ac);color:#fff;text-align:center;font-size:12.5px;padding:6px;font-weight:600}
+header{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--nv);color:#fff;padding:9px 12px}
+.hr{display:flex;gap:10px;align-items:center;max-width:1100px;margin:0 auto}
+.logo{font-weight:800;font-size:18px;white-space:nowrap}.logo b{color:var(--ac)}
+.sb{flex:1;display:flex;background:#fff;border-radius:8px;overflow:hidden}
+.sb input{flex:1;border:0;padding:10px;font:inherit;min-width:0;color:#161a21;background:#fff}.sb button{border-radius:0;padding:0 14px}
+.hb{position:relative;background:none;padding:6px;font-size:20px}.hb i{position:absolute;top:-2px;right:-4px;background:var(--ac);border-radius:10px;font-size:11px;font-style:normal;padding:0 5px}
+nav.cats{display:flex;gap:6px;overflow-x:auto;max-width:1100px;margin:8px auto 0;scrollbar-width:none}
+nav.cats a{white-space:nowrap;color:#dbe6f3;font-size:13px;padding:4px 10px;border-radius:14px;cursor:pointer}nav.cats a.on{background:var(--ac);color:#fff}
+main{max-width:1100px;margin:0 auto;padding:10px}
+.hero{position:relative;border-radius:14px;overflow:hidden;height:150px}
+.sl{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;padding:0 20px;color:#fff;opacity:0;transition:opacity .5s}.sl.on{opacity:1}
+.sl h2{margin:0 0 4px;font-size:22px}.sl p{margin:0 0 8px}.sl button{align-self:flex-start;background:#fff;color:#161a21}
+.s0{background:linear-gradient(120deg,#f4511e,#ff9a3c)}.s1{background:linear-gradient(120deg,#0f2b4a,#1f6fb2)}.s2{background:linear-gradient(120deg,#0a8f55,#1fc47f)}
+.dots{position:absolute;bottom:8px;right:12px;display:flex;gap:5px}.dots span{width:7px;height:7px;border-radius:50%;background:#ffffff80}.dots span.on{background:#fff}
+.tb{display:flex;gap:8px;overflow-x:auto;margin:10px 0;scrollbar-width:none}.tb div{flex:0 0 auto;background:var(--card);border:1px solid var(--bd);border-radius:20px;padding:5px 12px;font-size:12px;font-weight:600}
+.ci{display:grid;grid-template-columns:repeat(6,1fr);gap:6px;margin:10px 0}
+.ci div{text-align:center;font-size:12px;cursor:pointer}.ci span{display:flex;width:52px;height:52px;margin:0 auto 3px;border-radius:50%;background:var(--card);border:1px solid var(--bd);align-items:center;justify-content:center;font-size:24px}
+.sec{background:var(--card);border-radius:14px;padding:12px;margin:10px 0}
+.sh{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;gap:8px}.sh h3{margin:0;font-size:16px}
+.cd{background:var(--ac);color:#fff;border-radius:6px;padding:2px 8px;font-weight:700;font-variant-numeric:tabular-nums}
+.fl{display:flex;gap:10px;overflow-x:auto;scrollbar-width:none}.fl .p{flex:0 0 140px}
+.tools{display:flex;gap:8px;align-items:center}.tools select{border:1px solid var(--bd);border-radius:8px;padding:6px;background:var(--card);color:var(--tx);font:inherit}
+.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}
+@media(min-width:640px){.grid{grid-template-columns:repeat(3,1fr)}.ci{grid-template-columns:repeat(8,1fr)}.hero{height:200px}}
+@media(min-width:900px){.grid{grid-template-columns:repeat(5,1fr)}}
+.p{background:var(--card);border:1px solid var(--bd);border-radius:12px;overflow:hidden;position:relative;display:flex;flex-direction:column}
+.pi{height:110px;display:flex;align-items:center;justify-content:center;font-size:52px;background:linear-gradient(135deg,#f6e9e2,#e7eef7)}
+.fl .pi{height:90px;font-size:42px}
+.pb{padding:8px;display:flex;flex-direction:column;gap:3px;flex:1}
+.pn{font-size:13px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;min-height:36px}
+.pr{font-size:17px;font-weight:800;color:var(--ac)}.old{color:var(--mu);text-decoration:line-through;font-size:12px;margin-left:4px;font-weight:400}
+.mu{color:var(--mu);font-size:11.5px}.st{color:var(--ye);font-size:12px}
+.dc{position:absolute;top:6px;left:6px;background:var(--ac);color:#fff;font-size:11px;font-weight:700;border-radius:5px;padding:1px 6px}
+.hz{position:absolute;top:4px;right:4px;background:#ffffffcc;color:#999;border-radius:50%;width:28px;height:28px;padding:0;font-size:15px}.hz.on{color:#e0245e}
+.src{font-size:10.5px;background:#e8f5ee;color:var(--gr);border-radius:4px;padding:1px 5px;align-self:flex-start;font-weight:600}
+.pb button{margin-top:4px;padding:7px}
+#dr{position:fixed;inset:0;background:#0008;display:none;z-index:40}#dr.on{display:block}
+#sh{position:absolute;right:0;top:0;bottom:0;width:min(440px,100%);background:var(--bg);overflow-y:auto;padding:calc(12px + env(safe-area-inset-top,0px)) 12px calc(12px + env(safe-area-inset-bottom,0px))}
+.row{display:flex;justify-content:space-between;gap:8px;padding:3px 0}.tot{border-top:1px solid var(--bd);margin-top:6px;padding-top:8px;font-weight:800;font-size:16px}
+.pg{height:8px;border-radius:5px;background:var(--bd);overflow:hidden;margin:6px 0}.pg div{height:100%;background:var(--gr)}
+.ct{display:flex;gap:10px;align-items:center;background:var(--card);border-radius:10px;padding:8px;margin:6px 0}.ct .pi{width:54px;height:54px;font-size:28px;flex:none;border-radius:8px}
+.qt{display:flex;gap:6px;align-items:center}.qt button{padding:2px 9px}
+label{display:block;font-size:12px;margin:7px 0 2px;color:var(--mu)}
+input,select.f{width:100%;font:inherit;padding:9px;border:1px solid var(--bd);border-radius:8px;background:var(--card);color:var(--tx)}
+.err{color:#d33;font-size:12px;min-height:14px}.aw{position:relative}.al{position:absolute;left:0;right:0;top:100%;background:var(--card);border:1px solid var(--bd);border-radius:8px;z-index:5;max-height:220px;overflow-y:auto;display:none;box-shadow:0 6px 16px #0003}.al div{padding:10px;border-bottom:1px solid var(--bd);cursor:pointer;font-size:13px}.al div:last-child{border:0}.al small{display:block;color:var(--mu)}
+.step{display:flex;gap:10px;align-items:center;padding:4px 0}.dot{width:11px;height:11px;border-radius:50%;background:var(--bd)}.dot.d{background:var(--gr)}
+.bn{position:fixed;left:0;right:0;bottom:0;background:var(--card);border-top:1px solid var(--bd);display:flex;justify-content:space-around;padding:6px 0 calc(6px + env(safe-area-inset-bottom,0px));z-index:30}
+.bn a{text-align:center;font-size:11px;color:var(--mu);cursor:pointer;flex:1;position:relative}.bn a span{display:block;font-size:20px}
+.ft{text-align:center;color:var(--mu);font-size:12px;padding:16px}
+</style></head><body>
+<div class="ann">🚚 Free local delivery over R1,500 · 🛡️ Buyer protection on every order</div>
+<header><div class="hr"><div class="logo"><b>KFE</b><div style="font-size:9px;font-weight:500;opacity:.8;line-height:1">Kits FastExpress</div></div>
+<div class="sb"><input id="q" placeholder="Search solar, e-bikes, LED, tools…" oninput="show()"><button onclick="show()">🔍</button></div>
+<button class="hb" onclick="openCart()">🛒<i id="cn">0</i></button></div>
+<nav class="cats" id="nav"></nav></header>
+<main id="top">
+<div class="hero" id="hero">
+<div class="sl s0 on"><h2>Direct from China</h2><p>Factory prices. Duty & VAT included upfront.</p><button onclick="setCat('')">Shop now</button></div>
+<div class="sl s1"><h2>Power up SA ☀️</h2><p>Solar inverters & LiFePO4 batteries from verified suppliers.</p><button onclick="setCat('Solar')">Shop solar</button></div>
+<div class="sl s2"><h2>Pay safe, get safe</h2><p>Escrow + QC inspection before shipping.</p><button onclick="document.getElementById('how').scrollIntoView()">How it works</button></div>
+<div class="dots" id="dots"><span class="on"></span><span></span><span></span></div></div>
+<div class="tb"><div>🔒 Secure checkout</div><div>🛡️ Escrow until QC passed</div><div>✅ Verified suppliers</div><div>🧾 Duty & VAT upfront</div><div>↩️ POPIA compliant</div></div>
+<div class="ci" id="ci"></div>
+<div class="sec" id="deals"><div class="sh"><h3>⚡ Flash deals</h3><span>Ends in <span class="cd" id="cd">00:00:00</span></span></div><div class="fl" id="fl"></div></div>
+<div class="sec" id="all"><div class="sh"><h3 id="ttl">Recommended for you</h3><div class="tools"><select id="so" onchange="show()"><option value="r">Recommended</option><option value="pl">Price: low → high</option><option value="ph">Price: high → low</option><option value="rt">Top rated</option><option value="sd">Best selling</option></select></div></div><div class="grid" id="g"></div></div>
+<div class="sec" id="how"><h3>How it works</h3>
+<div class="step"><div class="dot d"></div>Pay in ZAR via secure gateway (card / instant EFT)</div>
+<div class="step"><div class="dot d"></div>We order from verified suppliers on Alibaba / Made-in-China</div>
+<div class="step"><div class="dot d"></div>QC check at our China agent warehouse, photos sent to you</div>
+<div class="step"><div class="dot d"></div>Shipped, cleared by SARS, delivered to your door</div>
+<p class="mu">Prototype: prices, FX (US$1 = R18.20) and duty rates are estimates.</p></div>
+<div class="ft">© KFE – Kits FastExpress · Terms · Privacy (POPIA) · Returns · Contact</div>
+</main>
+<div id="dr" onclick="if(event.target===this)closeCart()"><div id="sh"><div class="row"><h3 style="margin:0">Your cart</h3><button class="o" onclick="closeCart()">Close</button></div><div id="it"></div><div id="sm"></div>
+<div id="co" style="display:none"><h3>Secure checkout</h3>
+<label>Full name</label><input id="fn" maxlength="80" autocomplete="name"><div class="err" id="e1"></div>
+<label>Email</label><input id="em" type="email" maxlength="100"><div class="err" id="e2"></div>
+<label>Mobile (SA)</label><input id="ph" type="tel" placeholder="0821234567" maxlength="15"><div class="err" id="e3"></div>
+<label>Delivery address <span class="mu">(type 3 letters of your suburb, city or postal code)</span></label><div class="aw"><input id="ad" maxlength="150" autocomplete="off" placeholder="12 Main Rd, Pro…"><div class="al" id="al"></div></div><div class="err" id="e4"></div>
+<label>Province</label><select class="f" id="pv"><option>Gauteng</option><option>KwaZulu-Natal</option><option>Western Cape</option><option>Eastern Cape</option><option>Free State</option><option>Limpopo</option><option>Mpumalanga</option><option>North West</option><option>Northern Cape</option></select>
+<label>ID type</label><select class="f" id="idt" onchange="$('idn').placeholder=this.value=='id'?'13-digit SA ID number':'Passport number'"><option value="id">South African ID</option><option value="pp">Passport (foreign nationals)</option></select>
+<label>ID / passport number <span class="mu">(for delivery verification)</span></label><input id="idn" maxlength="13" autocomplete="off" inputmode="text" placeholder="13-digit SA ID number"><div class="err" id="e6"></div>
+<label style="display:flex;gap:8px;align-items:center;color:var(--tx)"><input type="checkbox" id="pp" style="width:auto"> I consent to POPIA processing of my details, incl. ID/passport for delivery &amp; customs verification</label><div class="err" id="e5"></div>
+<p class="mu">🔒 No card details here. Your ID is used only to confirm the recipient on delivery and is never shown publicly.</p>
+<button style="width:100%" onclick="order()">Pay securely</button></div><div id="dn"></div></div></div>
+<div class="bn"><a onclick="setCat('');scrollTo(0,0)"><span>🏠</span>Home</a><a onclick="document.getElementById('ci').scrollIntoView()"><span>🗂️</span>Categories</a><a onclick="wl=!wl;show();document.getElementById('all').scrollIntoView()"><span>❤️</span>Wishlist</a><a onclick="openCart()"><span>🛒</span>Cart</a></div>
+<script>
+const FX=18.2,VAT=.15,FREE=1500,DEL=99;
+const DUTY={Solar:.1,Electronics:.15,Home:.2,Fashion:.45,Tools:.15,Mobility:.25};
+const ICO={Solar:"☀️",Electronics:"🎧",Home:"🏠",Fashion:"👗",Tools:"🔧",Mobility:"🚲"};
+const P=[
+{id:1,n:"Hybrid solar inverter 5kW",c:"Solar",u:420,w:28,s:"Alibaba",r:4.8,k:960,i:"☀️"},
+{id:2,n:"LiFePO4 battery 5kWh rack",c:"Solar",u:690,w:42,s:"Made-in-China",r:4.7,k:540,i:"🔋"},
+{id:3,n:"LED floodlight 100W outdoor",c:"Electronics",u:6.5,w:.9,s:"Alibaba",r:4.5,k:5200,i:"💡"},
+{id:4,n:"Wireless earbuds ANC",c:"Electronics",u:9.8,w:.15,s:"Alibaba",r:4.3,k:8800,i:"🎧"},
+{id:5,n:"Folding e-bike 250W",c:"Mobility",u:310,w:19,s:"Made-in-China",r:4.6,k:730,i:"🚲"},
+{id:6,n:"Cordless drill kit 21V",c:"Tools",u:24,w:2.1,s:"Alibaba",r:4.6,k:3100,i:"🔧"},
+{id:7,n:"Digital air fryer 6L",c:"Home",u:21,w:4.2,s:"Made-in-China",r:4.7,k:6400,i:"🍳"},
+{id:8,n:"Women's puffer jacket",c:"Fashion",u:11,w:.7,s:"Alibaba",r:4.2,k:12000,i:"🧥"},
+{id:9,n:"Smart watch fitness tracker",c:"Electronics",u:12,w:.2,s:"Alibaba",r:4.4,k:9300,i:"⌚"},
+{id:10,n:"Power bank 20,000mAh",c:"Electronics",u:8.5,w:.45,s:"Made-in-China",r:4.6,k:7700,i:"🔌"},
+{id:11,n:"Men's running sneakers",c:"Fashion",u:14,w:.8,s:"Alibaba",r:4.3,k:10100,i:"👟"},
+{id:12,n:"Robot vacuum cleaner",c:"Home",u:68,w:3.4,s:"Made-in-China",r:4.5,k:2200,i:"🧹"}];
+P.forEach(p=>{const g=p.u*p.w*0+p.u*FX,sh=p.w*2.2*FX,d=(g+sh)*DUTY[p.c];p.p=Math.round((g+sh+d)*(1+VAT));p.o=Math.round(p.p*(1.25+(p.id%4)*.08));p.d=Math.round((1-p.p/p.o)*100)});
+let cat="",cart={},wish={},wl=false;
+const $=i=>document.getElementById(i),R=n=>"R"+Math.round(n).toLocaleString("en-ZA"),K=n=>n>=1000?(n/1000).toFixed(1)+"k":n;
+function card(p){return`<div class="p"><span class="dc">-${p.d}%</span><button class="hz ${wish[p.id]?"on":""}" onclick="hz(${p.id})">♥</button><div class="pi">${p.i}</div><div class="pb"><span class="src">via ${p.s}</span><div class="pn">${p.n}</div><div class="st">★ ${p.r} <span class="mu">· ${K(p.k)} sold</span></div><div><span class="pr">${R(p.p)}</span><span class="old">${R(p.o)}</span></div><div class="mu">Incl. shipping, duty & VAT</div><button onclick="add(${p.id})">Add to cart</button></div></div>`}
+function show(){let l=P.filter(p=>(!cat||p.c===cat)&&(!wl||wish[p.id])&&p.n.toLowerCase().includes($("q").value.toLowerCase()));const s=$("so").value;
+l.sort((a,b)=>s=="pl"?a.p-b.p:s=="ph"?b.p-a.p:s=="rt"?b.r-a.r:s=="sd"?b.k-a.k:a.id-b.id);
+$("g").innerHTML=l.map(card).join("")||'<p class="mu">Nothing found.</p>';$("ttl").textContent=wl?"❤️ Your wishlist":cat||"Recommended for you";
+$("fl").innerHTML=[...P].sort((a,b)=>b.d-a.d).slice(0,6).map(card).join("");
+$("nav").innerHTML=['<a class="'+(cat?"":"on")+'" onclick="setCat(\'\')">All</a>'].concat(Object.keys(DUTY).map(c=>`<a class="${cat==c?"on":""}" onclick="setCat('${c}')">${c}</a>`)).join("")}
+function setCat(c){cat=c;wl=false;show();if(c)$("all").scrollIntoView()}
+function hz(id){wish[id]=!wish[id];show()}
+function add(id){cart[id]=(cart[id]||0)+1;upd();openCart()}
+function upd(){$("cn").textContent=Object.values(cart).reduce((a,b)=>a+b,0)}
+function openCart(){$("dr").classList.add("on");$("dn").innerHTML="";draw()}
+function closeCart(){$("dr").classList.remove("on")}
+function draw(){const ids=Object.keys(cart);$("it").innerHTML="";
+if(!ids.length){$("it").innerHTML='<p class="mu">Your cart is empty.</p>';$("sm").innerHTML="";$("co").style.display="none";return}
+let sub=0;ids.forEach(id=>{const p=P.find(x=>x.id==id),q=cart[id];sub+=p.p*q;const d=document.createElement("div");d.className="ct";
+d.innerHTML=`<div class="pi">${p.i}</div><div style="flex:1"><div class="pn" style="min-height:0">${p.n}</div><b style="color:var(--ac)">${R(p.p*q)}</b></div><div class="qt"><button class="o" data-d="-1">−</button>${q}<button class="o" data-d="1">+</button></div>`;
+d.querySelectorAll("button").forEach(b=>b.onclick=()=>{cart[id]+=+b.dataset.d;if(cart[id]<=0)delete cart[id];upd();draw()});$("it").appendChild(d)});
+const dl=sub>=FREE?0:DEL,pc=Math.min(100,sub/FREE*100);
+$("sm").innerHTML=`<div class="sec"><div class="mu">${sub>=FREE?"🎉 Free local delivery unlocked":"Add "+R(FREE-sub)+" more for free local delivery"}</div><div class="pg"><div style="width:${pc}%"></div></div>
+<div class="row"><span>Items (shipping, duty & VAT incl.)</span><span>${R(sub)}</span></div><div class="row"><span>Local delivery</span><span>${dl?R(dl):"FREE"}</span></div><div class="row tot"><span>Total</span><span>${R(sub+dl)}</span></div></div>`;$("co").style.display="block"}
+function idOk(v){if(!/^\d{13}$/.test(v))return false;const mo=+v.slice(2,4),d=+v.slice(4,6);if(mo<1||mo>12||d<1||d>31||!"01".includes(v[10]))return false;let s=0;for(let i=0;i<13;i++){let n=+v[i];if(i%2==1){n*=2;if(n>9)n-=9}s+=n}return s%10==0}
+function order(){let ok=true;const s=(e,m)=>{$(e).textContent=m;if(m)ok=false};
+s("e1",$("fn").value.trim().length<3?"Enter your full name":"");s("e2",/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test($("em").value)?"":"Enter a valid email");
+s("e3",/^(0|\+27)[6-8]\d{8}$/.test($("ph").value.replace(/\s/g,""))?"":"Enter a valid SA mobile");s("e4",$("ad").value.trim().length<8?"Enter full address":"");s("e6",($("idt").value=="id"?idOk($("idn").value.replace(/\s/g,"")):/^[A-Za-z0-9]{6,9}$/.test($("idn").value.trim()))?"":($("idt").value=="id"?"Enter a valid 13-digit SA ID number":"Enter a valid passport number (6–9 characters)"));s("e5",$("pp").checked?"":"Consent required");
+if(!ok)return;const ref="KFE-"+Date.now().toString(36).toUpperCase();const idv=$("idn").value.replace(/\s/g,""),mask="••••"+idv.slice(-4);$("idn").value="";cart={};upd();$("it").innerHTML="";$("sm").innerHTML="";$("co").style.display="none";
+$("dn").innerHTML=`<div class="sec"><h3>✅ Order placed</h3><p>Reference <b>${ref}</b>. Live version redirects you to the payment gateway.</p><p class="mu">🪪 Delivery verification: ${$("idt").value=="id"?"SA ID":"Passport"} ${mask}. Have this ID ready – the courier will check it before handing over your parcel.</p><div class="step"><div class="dot d"></div>Payment held in escrow</div><div class="step"><div class="dot"></div>Supplier order placed</div><div class="step"><div class="dot"></div>QC inspection in China</div><div class="step"><div class="dot"></div>Shipped & customs cleared</div><div class="step"><div class="dot"></div>Delivered</div></div>`}
+const AD=[["Sandton","Johannesburg","2196","Gauteng"],["Rosebank","Johannesburg","2196","Gauteng"],["Randburg","Johannesburg","2194","Gauteng"],["Roodepoort","Johannesburg","1724","Gauteng"],["Soweto","Johannesburg","1804","Gauteng"],["Midrand","Johannesburg","1685","Gauteng"],["Pretoria Central","Pretoria","0002","Gauteng"],["Centurion","Pretoria","0157","Gauteng"],["Menlyn","Pretoria","0181","Gauteng"],["Boksburg","Ekurhuleni","1459","Gauteng"],["Kempton Park","Ekurhuleni","1619","Gauteng"],["Benoni","Ekurhuleni","1501","Gauteng"],["Germiston","Ekurhuleni","1401","Gauteng"],["Durban Central","Durban","4001","KwaZulu-Natal"],["Prospecton","Durban","4110","KwaZulu-Natal"],["Umhlanga Rocks","Durban","4319","KwaZulu-Natal"],["Umlazi","Durban","4031","KwaZulu-Natal"],["Pinetown","Durban","3610","KwaZulu-Natal"],["Westville","Durban","3629","KwaZulu-Natal"],["Pietermaritzburg","Pietermaritzburg","3201","KwaZulu-Natal"],["Richards Bay","Richards Bay","3900","KwaZulu-Natal"],["Ballito","Ballito","4420","KwaZulu-Natal"],["Newcastle","Newcastle","2940","KwaZulu-Natal"],["Cape Town City Centre","Cape Town","8001","Western Cape"],["Sea Point","Cape Town","8005","Western Cape"],["Claremont","Cape Town","7708","Western Cape"],["Mitchells Plain","Cape Town","7785","Western Cape"],["Bellville","Cape Town","7530","Western Cape"],["Stellenbosch","Stellenbosch","7600","Western Cape"],["Paarl","Paarl","7646","Western Cape"],["Somerset West","Somerset West","7130","Western Cape"],["George","George","6529","Western Cape"],["Port Elizabeth","Gqeberha","6001","Eastern Cape"],["East London","East London","5201","Eastern Cape"],["Mthatha","Mthatha","5099","Eastern Cape"],["Bloemfontein","Bloemfontein","9301","Free State"],["Polokwane","Polokwane","0699","Limpopo"],["Nelspruit","Mbombela","1200","Mpumalanga"],["Witbank","eMalahleni","1035","Mpumalanga"],["Rustenburg","Rustenburg","0299","North West"],["Potchefstroom","Potchefstroom","2520","North West"],["Kimberley","Kimberley","8301","Northern Cape"]];
+const ai=$("ad"),al=$("al");
+function find(k){k=k.toLowerCase();return AD.filter(a=>a.slice(0,3).some(x=>{x=x.toLowerCase();return x.startsWith(k)||x.includes(" "+k)})).slice(0,6)}
+ai.addEventListener("input",()=>{al.innerHTML="";al.style.display="none";const v=ai.value,parts=v.split(","),seg=parts[parts.length-1].trim(),lw=seg.split(/\s+/).pop();
+let k=seg,m=seg.length>=3?find(seg):[],pre=parts.slice(0,-1).map(s=>s.trim()).filter(Boolean).join(", ");
+if(!m.length&&lw.length>=3){m=find(lw);pre=(pre?pre+", ":"")+seg.slice(0,seg.length-lw.length).trim();pre=pre.replace(/[,\s]+$/,"")}
+m.forEach(a=>{const d=document.createElement("div");d.innerHTML="<b></b><small></small>";d.firstChild.textContent=a[0]+", "+a[1];d.lastChild.textContent=a[2]+" · "+a[3];
+d.onclick=()=>{ai.value=(pre?pre+", ":"")+a[0]+", "+a[1]+", "+a[2];$("pv").value=a[3];al.style.display="none"};al.appendChild(d)});
+if(m.length)al.style.display="block"});
+document.addEventListener("click",e=>{if(!e.target.closest(".aw"))al.style.display="none"});
+$("ci").innerHTML=Object.keys(DUTY).map(c=>`<div onclick="setCat('${c}')"><span>${ICO[c]}</span>${c}</div>`).join("");
+let si=0;setInterval(()=>{const s=document.querySelectorAll(".sl"),d=document.querySelectorAll("#dots span");s[si].classList.remove("on");d[si].classList.remove("on");si=(si+1)%3;s[si].classList.add("on");d[si].classList.add("on")},4000);
+function tick(){const n=new Date(),e=new Date(n);e.setHours(23,59,59,999);let t=Math.floor((e-n)/1000);const f=v=>String(v).padStart(2,"0");$("cd").textContent=f(t/3600|0)+":"+f(t%3600/60|0)+":"+f(t%60)}
+tick();setInterval(tick,1000);show();
+</script></body></html>
