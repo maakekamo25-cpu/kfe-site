@@ -60,6 +60,12 @@ input,select.f{width:100%;font:inherit;padding:9px;border:1px solid var(--bd);bo
 .bn{position:fixed;left:0;right:0;bottom:0;background:var(--card);border-top:1px solid var(--bd);display:flex;justify-content:space-around;padding:6px 0 calc(6px + env(safe-area-inset-bottom,0px));z-index:30}
 .bn a{text-align:center;font-size:11px;color:var(--mu);cursor:pointer;flex:1;position:relative}.bn a span{display:block;font-size:20px}
 .ft{text-align:center;color:var(--mu);font-size:12px;padding:16px}
+.pd{position:fixed;inset:0;background:#0008;display:none;z-index:50}.pd.on{display:block}
+.pds{position:absolute;inset:0;margin:auto;max-width:720px;height:100%;background:var(--bg);overflow-y:auto;padding:calc(10px + env(safe-area-inset-top,0px)) 12px calc(14px + env(safe-area-inset-bottom,0px))}
+.gm{width:100%;aspect-ratio:1;border-radius:12px;background:#fff;object-fit:contain;display:block}
+.th{display:flex;gap:6px;overflow-x:auto;margin:8px 0}.th img{width:58px;height:58px;object-fit:cover;border-radius:8px;border:2px solid transparent;cursor:pointer;flex:none;background:#fff}.th img.on{border-color:var(--ac)}
+.ch{display:flex;flex-wrap:wrap;gap:6px;margin:6px 0}.ch button{background:var(--card);color:var(--tx);border:1px solid var(--bd);padding:7px 11px;font-weight:600}.ch button.on{border-color:var(--ac);color:var(--ac)}
+.ds{white-space:pre-wrap;font-size:13px;color:var(--mu)}.di img{width:100%;border-radius:8px;margin:6px 0;display:block}
 </style></head><body>
 <div class="ann">🚚 Free local delivery over R1,500 · 🛡️ Buyer protection on every order</div>
 <header><div class="hr"><div class="logo"><b>KFE</b><div style="font-size:9px;font-weight:500;opacity:.8;line-height:1">Kits FastExpress</div></div>
@@ -96,6 +102,7 @@ input,select.f{width:100%;font:inherit;padding:9px;border:1px solid var(--bd);bo
 <label style="display:flex;gap:8px;align-items:center;color:var(--tx)"><input type="checkbox" id="pp" style="width:auto"> I consent to POPIA processing of my details, incl. ID/passport for delivery &amp; customs verification (<a href="privacy.html" target="_blank">Privacy</a>, <a href="terms.html" target="_blank">Terms</a>)</label><div class="err" id="e5"></div>
 <p class="mu">🔒 No card details here. Your ID is used only to confirm the recipient on delivery and is never shown publicly.</p>
 <button style="width:100%" onclick="order()">Pay securely</button></div><div id="dn"></div></div></div>
+<div id="pd" class="pd" onclick="if(event.target===this)closeP()"><div class="pds" id="pds"></div></div>
 <div class="bn"><a onclick="setCat('');scrollTo(0,0)"><span>🏠</span>Home</a><a onclick="document.getElementById('ci').scrollIntoView()"><span>🗂️</span>Categories</a><a onclick="wl=!wl;show();document.getElementById('all').scrollIntoView()"><span>❤️</span>Wishlist</a><a onclick="openCart()"><span>🛒</span>Cart</a></div>
 <script src="config.js"></script>
 <script>
@@ -123,7 +130,18 @@ const ic=p=>p.img&&/^https:\/\//.test(p.img)?'<img src="'+esc(p.img)+'" alt="" l
 let SHOW=40;function reshow(){SHOW=40;show()}
 let cat="",cart={},wish={},wl=false;
 const $=i=>document.getElementById(i),R=n=>"R"+Math.round(n).toLocaleString("en-ZA"),K=n=>n>=1000?(n/1000).toFixed(1)+"k":n;
-function card(p){const id=esc(p.id);return`<div class="p">${p.d>0?`<span class="dc">-${p.d}%</span>`:""}<button class="hz ${wish[p.id]?"on":""}" onclick="hz('${id}')">♥</button><div class="pi">${ic(p)}</div><div class="pb"><span class="src">via ${esc(p.s)}</span><div class="pn">${esc(p.n)}</div>${p.r?`<div class="st">★ ${p.r} <span class="mu">· ${K(p.k)} sold</span></div>`:(p.a?`<div class="mu">Delivery ≈ ${esc(p.a)} days</div>`:"")}<div><span class="pr">${R(p.p)}</span>${p.o?`<span class="old">${R(p.o)}</span>`:""}</div><div class="mu">Incl. shipping, duty &amp; VAT</div><button onclick="add('${id}')">Add to cart</button></div></div>`}
+const VARS={};let PD=null,PDV=null,PDQ=1,PDI=0,PDX=null;
+const vinfo=id=>VARS[id]||P.find(x=>x.id==id);
+const safeImg=u=>typeof u==="string"&&/^https:\/\//.test(u);
+function card(p){const id=esc(p.id),cj=p.nv>0,op=cj?` onclick="openP('${id}')" style="cursor:pointer"`:"";return`<div class="p">${p.d>0?`<span class="dc">-${p.d}%</span>`:""}<button class="hz ${wish[p.id]?"on":""}" onclick="hz('${id}')">♥</button><div class="pi"${op}>${ic(p)}</div><div class="pb"><span class="src">via ${esc(p.s)}</span><div class="pn"${op}>${esc(p.n)}</div>${p.r?`<div class="st">★ ${p.r} <span class="mu">· ${K(p.k)} sold</span></div>`:(p.a?`<div class="mu">Delivery ≈ ${esc(p.a)} days</div>`:"")}<div><span class="pr">${p.nv>1?'<span class="mu">from </span>':""}${R(p.p)}</span>${p.o?`<span class="old">${R(p.o)}</span>`:""}</div><div class="mu">Incl. shipping, duty &amp; VAT</div><button onclick="${cj?`openP('${id}')`:`add('${id}')`}">${cj?"View":"Add to cart"}</button></div></div>`}
+async function openP(id){$("pd").classList.add("on");$("pds").textContent="Loading…";
+try{const r=await fetch(API+"/api/product/"+encodeURIComponent(id));if(!r.ok)throw 0;PD=await r.json();PDV=PD.def;PDQ=1;PDI=0;PDX=null;drawP()}
+catch(e){$("pds").innerHTML='<p class="mu">Could not load this product.</p><button class="o" onclick="closeP()">Close</button>'}}
+function closeP(){$("pd").classList.remove("on")}
+function selV(id){PDV=id;const o=PD.options.find(x=>x.id==id);PDX=safeImg(o.img)?o.img:null;drawP()}
+function drawP(){const o=PD.options.find(x=>x.id==PDV),im=(PD.imgs||[]).filter(safeImg),main=PDX||im[PDI]||"";
+$("pds").innerHTML=`<div class="row"><b>${esc(PD.c)}</b><button class="o" onclick="closeP()">✕ Close</button></div>${main?`<img class="gm" src="${esc(main)}" alt="">`:""}<div class="th">${im.map((u,i)=>`<img src="${esc(u)}" class="${!PDX&&i==PDI?"on":""}" onclick="PDX=null;PDI=${i};drawP()" alt="">`).join("")}</div><h3 style="margin:6px 0">${esc(PD.n)}</h3><div class="pr" style="font-size:24px">${R(o.p)}</div><div class="mu">Incl. shipping, duty &amp; VAT · ships from China · estimated delivery ${esc(PD.aging||"a few weeks")} days</div>${PD.options.length>1?`<div class="mu" style="margin-top:10px">${esc(PD.optName||"Option")}</div><div class="ch">${PD.options.map(x=>`<button class="${x.id==PDV?"on":""}" onclick="selV('${esc(x.id)}')">${esc(x.label)}</button>`).join("")}</div>`:""}<div class="qt" style="margin:12px 0"><button class="o" onclick="PDQ=Math.max(1,PDQ-1);drawP()">−</button><b>${PDQ}</b><button class="o" onclick="PDQ=Math.min(20,PDQ+1);drawP()">+</button></div><button style="width:100%" onclick="addV()">Add to cart · ${R(o.p*PDQ)}</button><h4>Description</h4><div class="ds">${esc(PD.desc||"No description available.")}</div><div class="di">${(PD.dimgs||[]).filter(safeImg).map(u=>`<img loading="lazy" src="${esc(u)}" alt="">`).join("")}</div>`}
+function addV(){const o=PD.options.find(x=>x.id==PDV);VARS[o.id]={id:o.id,n:PD.n+(PD.options.length>1?" – "+o.label:""),p:o.p,img:safeImg(o.img)?o.img:PD.img,i:"📦"};cart[o.id]=Math.min(20,(cart[o.id]||0)+PDQ);upd();closeP();openCart()}
 function show(){let l=P.filter(p=>(!cat||p.c===cat)&&(!wl||wish[p.id])&&p.n.toLowerCase().includes($("q").value.toLowerCase()));const s=$("so").value;
 l.sort((a,b)=>s=="pl"?a.p-b.p:s=="ph"?b.p-a.p:s=="rt"?b.r-a.r:s=="sd"?b.k-a.k:a.id-b.id);
 $("g").innerHTML=(l.slice(0,SHOW).map(card).join("")+(l.length>SHOW?'<div style="grid-column:1/-1;text-align:center"><button onclick="SHOW+=40;show()">Show more ('+(l.length-SHOW)+' more)</button></div>':""))||'<p class="mu">'+(LOADING?'Loading products… the first load can take up to a minute.':'Nothing found.')+'</p>';$("ttl").textContent=wl?"❤️ Your wishlist":cat||"Recommended for you";
@@ -137,7 +155,7 @@ function openCart(){$("dr").classList.add("on");$("dn").innerHTML="";draw()}
 function closeCart(){$("dr").classList.remove("on")}
 function draw(){const ids=Object.keys(cart);$("it").innerHTML="";
 if(!ids.length){$("it").innerHTML='<p class="mu">Your cart is empty.</p>';$("sm").innerHTML="";$("co").style.display="none";return}
-let sub=0;ids.forEach(id=>{const p=P.find(x=>x.id==id),q=cart[id];sub+=p.p*q;const d=document.createElement("div");d.className="ct";
+let sub=0;ids.forEach(id=>{const p=vinfo(id)||{n:"Item",p:0,i:"📦"},q=cart[id];sub+=p.p*q;const d=document.createElement("div");d.className="ct";
 d.innerHTML=`<div class="pi">${ic(p)}</div><div style="flex:1"><div class="pn" style="min-height:0">${esc(p.n)}</div><b style="color:var(--ac)">${R(p.p*q)}</b></div><div class="qt"><button class="o" data-d="-1">−</button>${q}<button class="o" data-d="1">+</button></div>`;
 d.querySelectorAll("button").forEach(b=>b.onclick=()=>{cart[id]+=+b.dataset.d;if(cart[id]<=0)delete cart[id];upd();draw()});$("it").appendChild(d)});
 const dl=sub>=FREE?0:DEL,pc=Math.min(100,sub/FREE*100);
@@ -171,7 +189,7 @@ async function loadCatalog(n=0){if(!API)return;
 try{const r=await fetch(API+"/api/products");const j=await r.json();
 if(j.mode!=="cj"){P.push(...DEMO);LOADING=false;show();return}
 if(j.loading&&!j.products.length){setTimeout(()=>loadCatalog(n),8000);return}
-P.length=0;j.products.forEach(x=>P.push({id:String(x.id),n:x.n,c:x.c,p:x.p,o:0,d:0,r:0,k:0,s:"China supplier",i:"📦",img:x.img,a:x.aging}));LOADING=false;show();if(j.loading)setTimeout(()=>loadCatalog(0),15000)}
+P.length=0;j.products.forEach(x=>P.push({id:String(x.id),n:x.n,c:x.c,p:x.p,o:0,d:0,r:0,k:0,s:"China supplier",i:"📦",img:x.img,a:x.aging,nv:x.nv||1}));LOADING=false;show();if(j.loading)setTimeout(()=>loadCatalog(0),15000)}
 catch(e){if(n<6)setTimeout(()=>loadCatalog(n+1),8000);else{LOADING=false;$("g").innerHTML='<p class="mu">Could not load products. Please refresh the page.</p>'}}}
 tick();setInterval(tick,1000);if(API)P.length=0;show();loadCatalog();
 </script></body></html>
