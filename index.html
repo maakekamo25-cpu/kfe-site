@@ -63,7 +63,7 @@ input,select.f{width:100%;font:inherit;padding:9px;border:1px solid var(--bd);bo
 </style></head><body>
 <div class="ann">🚚 Free local delivery over R1,500 · 🛡️ Buyer protection on every order</div>
 <header><div class="hr"><div class="logo"><b>KFE</b><div style="font-size:9px;font-weight:500;opacity:.8;line-height:1">Kits FastExpress</div></div>
-<div class="sb"><input id="q" placeholder="Search solar, e-bikes, LED, tools…" oninput="show()"><button onclick="show()">🔍</button></div>
+<div class="sb"><input id="q" placeholder="Search solar, e-bikes, LED, tools…" oninput="reshow()"><button onclick="reshow()">🔍</button></div>
 <button class="hb" onclick="openCart()">🛒<i id="cn">0</i></button></div>
 <nav class="cats" id="nav"></nav></header>
 <main id="top">
@@ -75,7 +75,7 @@ input,select.f{width:100%;font:inherit;padding:9px;border:1px solid var(--bd);bo
 <div class="tb"><div>🔒 Secure checkout</div><div>🛡️ Protected until QC passed</div><div>✅ Verified suppliers</div><div>🧾 Duty & VAT upfront</div><div>↩️ POPIA compliant</div></div>
 <div class="ci" id="ci"></div>
 <div class="sec" id="deals"><div class="sh"><h3>⚡ Flash deals</h3><span>Ends in <span class="cd" id="cd">00:00:00</span></span></div><div class="fl" id="fl"></div></div>
-<div class="sec" id="all"><div class="sh"><h3 id="ttl">Recommended for you</h3><div class="tools"><select id="so" onchange="show()"><option value="r">Recommended</option><option value="pl">Price: low → high</option><option value="ph">Price: high → low</option><option value="rt">Top rated</option><option value="sd">Best selling</option></select></div></div><div class="grid" id="g"></div></div>
+<div class="sec" id="all"><div class="sh"><h3 id="ttl">Recommended for you</h3><div class="tools"><select id="so" onchange="reshow()"><option value="r">Recommended</option><option value="pl">Price: low → high</option><option value="ph">Price: high → low</option><option value="rt">Top rated</option><option value="sd">Best selling</option></select></div></div><div class="grid" id="g"></div></div>
 <div class="sec" id="how"><h3>How it works</h3>
 <div class="step"><div class="dot d"></div>Pay in ZAR via secure gateway (card / instant EFT)</div>
 <div class="step"><div class="dot d"></div>We order from verified suppliers on Alibaba / Made-in-China</div>
@@ -120,15 +120,16 @@ P.forEach(p=>{const g=p.u*p.w*0+p.u*FX,sh=p.w*2.2*FX,d=(g+sh)*DUTY[p.c];p.p=Math
 const DEMO=P.slice();let LOADING=!!API;
 const esc=s=>String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 const ic=p=>p.img&&/^https:\/\//.test(p.img)?'<img src="'+esc(p.img)+'" alt="" loading="lazy" style="width:100%;height:100%;object-fit:cover">':p.i;
+let SHOW=40;function reshow(){SHOW=40;show()}
 let cat="",cart={},wish={},wl=false;
 const $=i=>document.getElementById(i),R=n=>"R"+Math.round(n).toLocaleString("en-ZA"),K=n=>n>=1000?(n/1000).toFixed(1)+"k":n;
 function card(p){const id=esc(p.id);return`<div class="p">${p.d>0?`<span class="dc">-${p.d}%</span>`:""}<button class="hz ${wish[p.id]?"on":""}" onclick="hz('${id}')">♥</button><div class="pi">${ic(p)}</div><div class="pb"><span class="src">via ${esc(p.s)}</span><div class="pn">${esc(p.n)}</div>${p.r?`<div class="st">★ ${p.r} <span class="mu">· ${K(p.k)} sold</span></div>`:(p.a?`<div class="mu">Delivery ≈ ${esc(p.a)} days</div>`:"")}<div><span class="pr">${R(p.p)}</span>${p.o?`<span class="old">${R(p.o)}</span>`:""}</div><div class="mu">Incl. shipping, duty &amp; VAT</div><button onclick="add('${id}')">Add to cart</button></div></div>`}
 function show(){let l=P.filter(p=>(!cat||p.c===cat)&&(!wl||wish[p.id])&&p.n.toLowerCase().includes($("q").value.toLowerCase()));const s=$("so").value;
 l.sort((a,b)=>s=="pl"?a.p-b.p:s=="ph"?b.p-a.p:s=="rt"?b.r-a.r:s=="sd"?b.k-a.k:a.id-b.id);
-$("g").innerHTML=l.map(card).join("")||'<p class="mu">'+(LOADING?'Loading products… the first load can take up to a minute.':'Nothing found.')+'</p>';$("ttl").textContent=wl?"❤️ Your wishlist":cat||"Recommended for you";
+$("g").innerHTML=(l.slice(0,SHOW).map(card).join("")+(l.length>SHOW?'<div style="grid-column:1/-1;text-align:center"><button onclick="SHOW+=40;show()">Show more ('+(l.length-SHOW)+' more)</button></div>':""))||'<p class="mu">'+(LOADING?'Loading products… the first load can take up to a minute.':'Nothing found.')+'</p>';$("ttl").textContent=wl?"❤️ Your wishlist":cat||"Recommended for you";
 const fd=[...P].filter(p=>p.d>0).sort((a,b)=>b.d-a.d).slice(0,6);$("deals").style.display=fd.length?"":"none";$("fl").innerHTML=fd.map(card).join("");
-$("nav").innerHTML=['<a class="'+(cat?"":"on")+'" onclick="setCat(\'\')">All</a>'].concat(Object.keys(DUTY).map(c=>`<a class="${cat==c?"on":""}" onclick="setCat('${c}')">${c}</a>`)).join("")}
-function setCat(c){cat=c;wl=false;show();if(c)$("all").scrollIntoView()}
+$("nav").innerHTML=['<a class="'+(cat?"":"on")+'" onclick="setCat(\'\')">All</a>'].concat([...new Set(P.map(p=>p.c))].map(c=>`<a class="${cat==c?"on":""}" onclick="setCat('${c}')">${c}</a>`)).join("");$("ci").innerHTML=[...new Set(P.map(p=>p.c))].map(c=>`<div onclick="setCat('${c}')"><span>${ICO[c]||"🛍️"}</span>${c}</div>`).join("")}
+function setCat(c){cat=c;wl=false;SHOW=40;show();if(c)$("all").scrollIntoView()}
 function hz(id){wish[id]=!wish[id];show()}
 function add(id){cart[id]=(cart[id]||0)+1;upd();openCart()}
 function upd(){$("cn").textContent=Object.values(cart).reduce((a,b)=>a+b,0)}
@@ -170,7 +171,7 @@ async function loadCatalog(n=0){if(!API)return;
 try{const r=await fetch(API+"/api/products");const j=await r.json();
 if(j.mode!=="cj"){P.push(...DEMO);LOADING=false;show();return}
 if(j.loading&&!j.products.length){setTimeout(()=>loadCatalog(n),8000);return}
-P.length=0;j.products.forEach(x=>P.push({id:String(x.id),n:x.n,c:x.c,p:x.p,o:0,d:0,r:0,k:0,s:"China supplier",i:"📦",img:x.img,a:x.aging}));LOADING=false;show()}
+P.length=0;j.products.forEach(x=>P.push({id:String(x.id),n:x.n,c:x.c,p:x.p,o:0,d:0,r:0,k:0,s:"China supplier",i:"📦",img:x.img,a:x.aging}));LOADING=false;show();if(j.loading)setTimeout(()=>loadCatalog(0),15000)}
 catch(e){if(n<6)setTimeout(()=>loadCatalog(n+1),8000);else{LOADING=false;$("g").innerHTML='<p class="mu">Could not load products. Please refresh the page.</p>'}}}
 tick();setInterval(tick,1000);if(API)P.length=0;show();loadCatalog();
 </script></body></html>
