@@ -66,8 +66,10 @@ input,select.f{width:100%;font:inherit;padding:9px;border:1px solid var(--bd);bo
 .th{display:flex;gap:6px;overflow-x:auto;margin:8px 0}.th img{width:58px;height:58px;object-fit:cover;border-radius:8px;border:2px solid transparent;cursor:pointer;flex:none;background:#fff}.th img.on{border-color:var(--ac)}
 .ch{display:flex;flex-wrap:wrap;gap:6px;margin:6px 0}.ch button{background:var(--card);color:var(--tx);border:1px solid var(--bd);padding:7px 11px;font-weight:600}.ch button.on{border-color:var(--ac);color:var(--ac)}
 .ds{white-space:pre-wrap;font-size:13px;color:var(--mu)}.di img{width:100%;border-radius:8px;margin:6px 0;display:block}
+.spin{display:inline-block;width:14px;height:14px;border:2px solid var(--bd);border-top-color:var(--ac);border-radius:50%;animation:rot .8s linear infinite;vertical-align:-2px}@keyframes rot{to{transform:rotate(360deg)}}
+.sk{height:230px;background:linear-gradient(90deg,var(--card) 25%,var(--bd) 50%,var(--card) 75%);background-size:200% 100%;animation:shm 1.2s infinite}@keyframes shm{to{background-position:-200% 0}}
 </style></head><body>
-<div class="ann">🚚 Free local delivery over R1,500 · 🛡️ Buyer protection on every order</div>
+<div class="ann">🚚 Ships from China to your door · 🛡️ Secure payments by PayFast</div>
 <header><div class="hr"><div class="logo"><b>KFE</b><div style="font-size:9px;font-weight:500;opacity:.8;line-height:1">Kits FastExpress</div></div>
 <div class="sb"><input id="q" placeholder="Search solar, e-bikes, LED, tools…" oninput="reshow()"><button onclick="reshow()">🔍</button></div>
 <button class="hb" onclick="openCart()">🛒<i id="cn">0</i></button></div>
@@ -75,20 +77,20 @@ input,select.f{width:100%;font:inherit;padding:9px;border:1px solid var(--bd);bo
 <main id="top">
 <div class="hero" id="hero">
 <div class="sl s0 on"><h2>Direct from China</h2><p>Factory prices. Duty & VAT included upfront.</p><button onclick="setCat('')">Shop now</button></div>
-<div class="sl s1"><h2>Power up SA ☀️</h2><p>Solar inverters & LiFePO4 batteries from verified suppliers.</p><button onclick="setCat('Solar')">Shop solar</button></div>
-<div class="sl s2"><h2>Pay safe, get safe</h2><p>Protected payment + QC inspection before shipping.</p><button onclick="document.getElementById('how').scrollIntoView()">How it works</button></div>
+<div class="sl s1"><h2>Power up SA ☀️</h2><p>Solar lights and more, shipped to your door.</p><button onclick="setCat('Solar')">Shop solar</button></div>
+<div class="sl s2"><h2>Pay safely</h2><p>Card and instant EFT, processed by PayFast.</p><button onclick="document.getElementById('how').scrollIntoView()">How it works</button></div>
 <div class="dots" id="dots"><span class="on"></span><span></span><span></span></div></div>
-<div class="tb"><div>🔒 Secure checkout</div><div>🛡️ Protected until QC passed</div><div>✅ Verified suppliers</div><div>🧾 Duty & VAT upfront</div><div>↩️ POPIA compliant</div></div>
+<div class="tb"><div>🔒 Secure checkout</div><div>🛡️ Payments by PayFast</div><div>🚚 Ships from China to your door</div><div>🧾 Duty & VAT upfront</div><div>↩️ 7-day returns</div></div>
 <div class="ci" id="ci"></div>
 <div class="sec" id="deals"><div class="sh"><h3>⚡ Flash deals</h3><span>Ends in <span class="cd" id="cd">00:00:00</span></span></div><div class="fl" id="fl"></div></div>
 <div class="sec" id="all"><div class="sh"><h3 id="ttl">Recommended for you</h3><div class="tools"><select id="so" onchange="reshow()"><option value="r">Recommended</option><option value="pl">Price: low → high</option><option value="ph">Price: high → low</option><option value="rt">Top rated</option><option value="sd">Best selling</option></select></div></div><div class="grid" id="g"></div></div>
 <div class="sec" id="how"><h3>How it works</h3>
 <div class="step"><div class="dot d"></div>Pay in ZAR via secure gateway (card / instant EFT)</div>
-<div class="step"><div class="dot d"></div>We order from verified suppliers on Alibaba / Made-in-China</div>
-<div class="step"><div class="dot d"></div>QC check at our China agent warehouse, photos sent to you</div>
+<div class="step"><div class="dot d"></div>We place your order with our China fulfilment partner</div>
+<div class="step"><div class="dot d"></div>Your parcel is packed and shipped from China to South Africa</div>
 <div class="step"><div class="dot d"></div>Shipped, cleared by SARS, delivered to your door</div>
 <p class="mu">Prototype: prices, FX (US$1 = R18.20) and duty rates are estimates.</p></div>
-<div class="ft">© KFE – Kits FastExpress · a trading name of NXTDRV EV (Pty) Ltd · Reg. 2026/492988/07<br><a href="terms.html" style="color:inherit">Terms</a> · <a href="privacy.html" style="color:inherit">Privacy (POPIA)</a> · <a href="returns.html" style="color:inherit">Returns</a> · <a href="contact.html" style="color:inherit">Contact</a></div>
+<div class="ft">© KFE – Kits FastExpress · a trading name of NXTDRV EV (Pty) Ltd · Reg. 2026/492988/07<br><a href="terms.html" style="color:inherit">Terms</a> · <a href="privacy.html" style="color:inherit">Privacy (POPIA)</a> · <a href="returns.html" style="color:inherit">Returns</a> · <a href="contact.html" style="color:inherit">Contact</a> · <a href="track.html" style="color:inherit">Track order</a></div>
 </main>
 <div id="dr" onclick="if(event.target===this)closeCart()"><div id="sh"><div class="row"><h3 style="margin:0">Your cart</h3><button class="o" onclick="closeCart()">Close</button></div><div id="it"></div><div id="sm"></div>
 <div id="co" style="display:none"><h3>Secure checkout</h3>
@@ -99,7 +101,7 @@ input,select.f{width:100%;font:inherit;padding:9px;border:1px solid var(--bd);bo
 <label>Province</label><select class="f" id="pv"><option>Gauteng</option><option>KwaZulu-Natal</option><option>Western Cape</option><option>Eastern Cape</option><option>Free State</option><option>Limpopo</option><option>Mpumalanga</option><option>North West</option><option>Northern Cape</option></select>
 <label>ID type</label><select class="f" id="idt" onchange="$('idn').placeholder=this.value=='id'?'13-digit SA ID number':'Passport number'"><option value="id">South African ID</option><option value="pp">Passport (foreign nationals)</option></select>
 <label>ID / passport number <span class="mu">(for delivery verification)</span></label><input id="idn" maxlength="13" autocomplete="off" inputmode="text" placeholder="13-digit SA ID number"><div class="err" id="e6"></div>
-<label style="display:flex;gap:8px;align-items:center;color:var(--tx)"><input type="checkbox" id="pp" style="width:auto"> I consent to POPIA processing of my details, incl. ID/passport for delivery &amp; customs verification (<a href="privacy.html" target="_blank">Privacy</a>, <a href="terms.html" target="_blank">Terms</a>)</label><div class="err" id="e5"></div>
+<label style="display:flex;gap:8px;align-items:center;color:var(--tx)"><input type="checkbox" id="pp" style="width:auto"> I consent to POPIA processing of my details, incl. ID/passport for delivery and customs purposes, and sharing my name, address and phone number with KFE's China fulfilment partner so my order can be shipped (<a href="privacy.html" target="_blank">Privacy</a>, <a href="terms.html" target="_blank">Terms</a>)</label><div class="err" id="e5"></div>
 <p class="mu">🔒 No card details here. Your ID is used only to confirm the recipient on delivery and is never shown publicly.</p>
 <button style="width:100%" onclick="order()">Pay securely</button></div><div id="dn"></div></div></div>
 <div id="pd" class="pd" onclick="if(event.target===this)closeP()"><div class="pds" id="pds"></div></div>
@@ -125,6 +127,7 @@ const P=[
 {id:12,n:"Robot vacuum cleaner",c:"Home",u:68,w:3.4,s:"Made-in-China",r:4.5,k:2200,i:"🧹"}];
 P.forEach(p=>{const g=p.u*p.w*0+p.u*FX,sh=p.w*2.2*FX,d=(g+sh)*DUTY[p.c];p.p=Math.round((g+sh+d)*(1+VAT));p.o=Math.round(p.p*(1.25+(p.id%4)*.08));p.d=Math.round((1-p.p/p.o)*100)});
 const DEMO=P.slice();let LOADING=!!API;
+const SK='<div class="p sk"></div>'.repeat(8)+'<div class="mu" style="grid-column:1/-1;text-align:center;padding:8px"><span class="spin"></span> Getting our latest products ready. This can take up to a minute the first time you visit.</div>';
 const esc=s=>String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 const ic=p=>p.img&&/^https:\/\//.test(p.img)?'<img src="'+esc(p.img)+'" alt="" loading="lazy" style="width:100%;height:100%;object-fit:cover">':p.i;
 let SHOW=40;function reshow(){SHOW=40;show()}
@@ -134,7 +137,7 @@ const VARS={};let PD=null,PDV=null,PDQ=1,PDI=0,PDX=null;
 const vinfo=id=>VARS[id]||P.find(x=>x.id==id);
 const safeImg=u=>typeof u==="string"&&/^https:\/\//.test(u);
 function card(p){const id=esc(p.id),cj=p.nv>0,op=cj?` onclick="openP('${id}')" style="cursor:pointer"`:"";return`<div class="p">${p.d>0?`<span class="dc">-${p.d}%</span>`:""}<button class="hz ${wish[p.id]?"on":""}" onclick="hz('${id}')">♥</button><div class="pi"${op}>${ic(p)}</div><div class="pb"><span class="src">via ${esc(p.s)}</span><div class="pn"${op}>${esc(p.n)}</div>${p.r?`<div class="st">★ ${p.r} <span class="mu">· ${K(p.k)} sold</span></div>`:(p.a?`<div class="mu">Delivery ≈ ${esc(p.a)} days</div>`:"")}<div><span class="pr">${p.nv>1?'<span class="mu">from </span>':""}${R(p.p)}</span>${p.o?`<span class="old">${R(p.o)}</span>`:""}</div><div class="mu">Incl. shipping, duty &amp; VAT</div><button onclick="${cj?`openP('${id}')`:`add('${id}')`}">${cj?"View":"Add to cart"}</button></div></div>`}
-async function openP(id){$("pd").classList.add("on");$("pds").textContent="Loading…";
+async function openP(id){$("pd").classList.add("on");$("pds").innerHTML='<p class="mu"><span class="spin"></span> Loading… if our server has been idle this can take up to a minute.</p>';
 try{const r=await fetch(API+"/api/product/"+encodeURIComponent(id));if(!r.ok)throw 0;PD=await r.json();PDV=PD.def;PDQ=1;PDI=0;PDX=null;drawP()}
 catch(e){$("pds").innerHTML='<p class="mu">Could not load this product.</p><button class="o" onclick="closeP()">Close</button>'}}
 function closeP(){$("pd").classList.remove("on")}
@@ -144,7 +147,7 @@ $("pds").innerHTML=`<div class="row"><b>${esc(PD.c)}</b><button class="o" onclic
 function addV(){const o=PD.options.find(x=>x.id==PDV);VARS[o.id]={id:o.id,n:PD.n+(PD.options.length>1?" – "+o.label:""),p:o.p,img:safeImg(o.img)?o.img:PD.img,i:"📦"};cart[o.id]=Math.min(20,(cart[o.id]||0)+PDQ);upd();closeP();openCart()}
 function show(){let l=P.filter(p=>(!cat||p.c===cat)&&(!wl||wish[p.id])&&p.n.toLowerCase().includes($("q").value.toLowerCase()));const s=$("so").value;
 l.sort((a,b)=>s=="pl"?a.p-b.p:s=="ph"?b.p-a.p:s=="rt"?b.r-a.r:s=="sd"?b.k-a.k:a.id-b.id);
-$("g").innerHTML=(l.slice(0,SHOW).map(card).join("")+(l.length>SHOW?'<div style="grid-column:1/-1;text-align:center"><button onclick="SHOW+=40;show()">Show more ('+(l.length-SHOW)+' more)</button></div>':""))||'<p class="mu">'+(LOADING?'Loading products… the first load can take up to a minute.':'Nothing found.')+'</p>';$("ttl").textContent=wl?"❤️ Your wishlist":cat||"Recommended for you";
+$("g").innerHTML=(l.slice(0,SHOW).map(card).join("")+(l.length>SHOW?'<div style="grid-column:1/-1;text-align:center"><button onclick="SHOW+=40;show()">Show more ('+(l.length-SHOW)+' more)</button></div>':""))||(LOADING?SK:'<p class="mu">Nothing found.</p>');$("ttl").textContent=wl?"❤️ Your wishlist":cat||"Recommended for you";
 const fd=[...P].filter(p=>p.d>0).sort((a,b)=>b.d-a.d).slice(0,6);$("deals").style.display=fd.length?"":"none";$("fl").innerHTML=fd.map(card).join("");
 $("nav").innerHTML=['<a class="'+(cat?"":"on")+'" onclick="setCat(\'\')">All</a>'].concat([...new Set(P.map(p=>p.c))].map(c=>`<a class="${cat==c?"on":""}" onclick="setCat('${c}')">${c}</a>`)).join("");$("ci").innerHTML=[...new Set(P.map(p=>p.c))].map(c=>`<div onclick="setCat('${c}')"><span>${ICO[c]||"🛍️"}</span>${c}</div>`).join("")}
 function setCat(c){cat=c;wl=false;SHOW=40;show();if(c)$("all").scrollIntoView()}
@@ -171,7 +174,7 @@ function order(){let ok=true;const s=(e,m)=>{$(e).textContent=m;if(m)ok=false};
 s("e1",$("fn").value.trim().length<3?"Enter your full name":"");s("e2",/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test($("em").value)?"":"Enter a valid email");
 s("e3",/^(0|\+27)[6-8]\d{8}$/.test($("ph").value.replace(/\s/g,""))?"":"Enter a valid SA mobile");s("e4",$("ad").value.trim().length<8?"Enter full address":"");s("e6",($("idt").value=="id"?idOk($("idn").value.replace(/\s/g,"")):/^[A-Za-z0-9]{6,9}$/.test($("idn").value.trim()))?"":($("idt").value=="id"?"Enter a valid 13-digit SA ID number":"Enter a valid passport number (6–9 characters)"));s("e5",$("pp").checked?"":"Consent required");
 if(!ok)return;if(API)return pay();const ref="KFE-"+Date.now().toString(36).toUpperCase();const idv=$("idn").value.replace(/\s/g,""),mask="••••"+idv.slice(-4);$("idn").value="";cart={};upd();$("it").innerHTML="";$("sm").innerHTML="";$("co").style.display="none";
-$("dn").innerHTML=`<div class="sec"><h3>✅ Order placed</h3><p>Reference <b>${ref}</b>. Live version redirects you to the payment gateway.</p><p class="mu">🪪 Delivery verification: ${$("idt").value=="id"?"SA ID":"Passport"} ${mask}. Have this ID ready – the courier will check it before handing over your parcel.</p><div class="step"><div class="dot d"></div>Payment received &amp; protected</div><div class="step"><div class="dot"></div>Supplier order placed</div><div class="step"><div class="dot"></div>QC inspection in China</div><div class="step"><div class="dot"></div>Shipped & customs cleared</div><div class="step"><div class="dot"></div>Delivered</div></div>`}
+$("dn").innerHTML=`<div class="sec"><h3>✅ Order placed</h3><p>Reference <b>${ref}</b>. Live version redirects you to the payment gateway.</p><p class="mu">🪪 Delivery verification: ${$("idt").value=="id"?"SA ID":"Passport"} ${mask}. You may be asked to show this ID on delivery.</p><div class="step"><div class="dot d"></div>Payment received</div><div class="step"><div class="dot"></div>Order placed with our China fulfilment partner</div><div class="step"><div class="dot"></div>Packed and shipped from China</div><div class="step"><div class="dot"></div>Shipped & customs cleared</div><div class="step"><div class="dot"></div>Delivered</div></div>`}
 const AD=[["Sandton","Johannesburg","2196","Gauteng"],["Rosebank","Johannesburg","2196","Gauteng"],["Randburg","Johannesburg","2194","Gauteng"],["Roodepoort","Johannesburg","1724","Gauteng"],["Soweto","Johannesburg","1804","Gauteng"],["Midrand","Johannesburg","1685","Gauteng"],["Pretoria Central","Pretoria","0002","Gauteng"],["Centurion","Pretoria","0157","Gauteng"],["Menlyn","Pretoria","0181","Gauteng"],["Boksburg","Ekurhuleni","1459","Gauteng"],["Kempton Park","Ekurhuleni","1619","Gauteng"],["Benoni","Ekurhuleni","1501","Gauteng"],["Germiston","Ekurhuleni","1401","Gauteng"],["Durban Central","Durban","4001","KwaZulu-Natal"],["Prospecton","Durban","4110","KwaZulu-Natal"],["Umhlanga Rocks","Durban","4319","KwaZulu-Natal"],["Umlazi","Durban","4031","KwaZulu-Natal"],["Pinetown","Durban","3610","KwaZulu-Natal"],["Westville","Durban","3629","KwaZulu-Natal"],["Pietermaritzburg","Pietermaritzburg","3201","KwaZulu-Natal"],["Richards Bay","Richards Bay","3900","KwaZulu-Natal"],["Ballito","Ballito","4420","KwaZulu-Natal"],["Newcastle","Newcastle","2940","KwaZulu-Natal"],["Cape Town City Centre","Cape Town","8001","Western Cape"],["Sea Point","Cape Town","8005","Western Cape"],["Claremont","Cape Town","7708","Western Cape"],["Mitchells Plain","Cape Town","7785","Western Cape"],["Bellville","Cape Town","7530","Western Cape"],["Stellenbosch","Stellenbosch","7600","Western Cape"],["Paarl","Paarl","7646","Western Cape"],["Somerset West","Somerset West","7130","Western Cape"],["George","George","6529","Western Cape"],["Port Elizabeth","Gqeberha","6001","Eastern Cape"],["East London","East London","5201","Eastern Cape"],["Mthatha","Mthatha","5099","Eastern Cape"],["Bloemfontein","Bloemfontein","9301","Free State"],["Polokwane","Polokwane","0699","Limpopo"],["Nelspruit","Mbombela","1200","Mpumalanga"],["Witbank","eMalahleni","1035","Mpumalanga"],["Rustenburg","Rustenburg","0299","North West"],["Potchefstroom","Potchefstroom","2520","North West"],["Kimberley","Kimberley","8301","Northern Cape"]];
 const ai=$("ad"),al=$("al");
 function find(k){k=k.toLowerCase();return AD.filter(a=>a.slice(0,3).some(x=>{x=x.toLowerCase();return x.startsWith(k)||x.includes(" "+k)})).slice(0,6)}
@@ -185,11 +188,12 @@ document.addEventListener("click",e=>{if(!e.target.closest(".aw"))al.style.displ
 $("ci").innerHTML=Object.keys(DUTY).map(c=>`<div onclick="setCat('${c}')"><span>${ICO[c]}</span>${c}</div>`).join("");
 let si=0;setInterval(()=>{const s=document.querySelectorAll(".sl"),d=document.querySelectorAll("#dots span");s[si].classList.remove("on");d[si].classList.remove("on");si=(si+1)%3;s[si].classList.add("on");d[si].classList.add("on")},4000);
 function tick(){const n=new Date(),e=new Date(n);e.setHours(23,59,59,999);let t=Math.floor((e-n)/1000);const f=v=>String(v).padStart(2,"0");$("cd").textContent=f(t/3600|0)+":"+f(t%3600/60|0)+":"+f(t%60)}
+const toP=x=>({id:String(x.id),n:x.n,c:x.c,p:x.p,o:0,d:0,r:0,k:0,s:"China supplier",i:"📦",img:x.img,a:x.aging,nv:x.nv||1});
 async function loadCatalog(n=0){if(!API)return;
 try{const r=await fetch(API+"/api/products");const j=await r.json();
-if(j.mode!=="cj"){P.push(...DEMO);LOADING=false;show();return}
+if(j.mode!=="cj"){P.length=0;P.push(...DEMO);LOADING=false;show();return}
 if(j.loading&&!j.products.length){setTimeout(()=>loadCatalog(n),8000);return}
-P.length=0;j.products.forEach(x=>P.push({id:String(x.id),n:x.n,c:x.c,p:x.p,o:0,d:0,r:0,k:0,s:"China supplier",i:"📦",img:x.img,a:x.aging,nv:x.nv||1}));LOADING=false;show();if(j.loading)setTimeout(()=>loadCatalog(0),15000)}
-catch(e){if(n<6)setTimeout(()=>loadCatalog(n+1),8000);else{LOADING=false;$("g").innerHTML='<p class="mu">Could not load products. Please refresh the page.</p>'}}}
-tick();setInterval(tick,1000);if(API)P.length=0;show();loadCatalog();
+P.length=0;j.products.forEach(x=>P.push(toP(x)));try{localStorage.setItem("kfe_p",JSON.stringify({t:Date.now(),p:j.products}))}catch(e){}LOADING=false;show();if(j.loading)setTimeout(()=>loadCatalog(0),15000)}
+catch(e){if(n<6)setTimeout(()=>loadCatalog(n+1),8000);else{LOADING=false;if(!P.length)$("g").innerHTML='<p class="mu">Could not load products. Please refresh the page.</p>'}}}
+tick();setInterval(tick,1000);if(API){P.length=0;try{const c=JSON.parse(localStorage.getItem("kfe_p")||"null");if(c&&Date.now()-c.t<6048e5&&Array.isArray(c.p)&&c.p.length){c.p.forEach(x=>P.push(toP(x)));LOADING=false}}catch(e){}}show();loadCatalog();
 </script></body></html>

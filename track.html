@@ -1,0 +1,32 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>Track your order – KFE</title><link rel="stylesheet" href="legal.css">
+<style>input{width:100%;padding:11px;margin:4px 0 12px;border:1px solid var(--bd);border-radius:8px;font:inherit;background:var(--card);color:var(--tx)}button{padding:11px 16px;border:0;border-radius:8px;background:var(--ac);color:#fff;font:inherit;font-weight:700;cursor:pointer}#out{margin-top:16px}</style></head>
+<body><header><a href="index.html"><b>KFE</b> Kits FastExpress</a></header>
+<main><article><h1>Track your order</h1><p class="mu">Enter your order reference (it starts with KFE-) and the email address you used.</p>
+<label>Order reference</label><input id="r" maxlength="30" autocomplete="off" placeholder="KFE-…">
+<label>Email address</label><input id="e" type="email" maxlength="100" autocomplete="email">
+<button id="go">Check my order</button><div id="out"></div></article>
+<nav class="l"><a href="index.html">Home</a><a href="terms.html">Terms</a><a href="returns.html">Returns</a><a href="privacy.html">Privacy</a><a href="contact.html">Contact</a></nav></main>
+<script src="config.js"></script>
+<script>
+const out=document.getElementById("out");
+function add(tag,text,parent){const n=document.createElement(tag);n.textContent=text;(parent||out).appendChild(n);return n}
+document.getElementById("go").onclick=async()=>{
+ out.textContent="";
+ if(typeof API_BASE==="undefined"||!API_BASE){add("p","Order tracking is not available yet.");return}
+ add("p","Checking…");
+ try{
+  const r=await fetch(API_BASE+"/api/track",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({ref:document.getElementById("r").value,email:document.getElementById("e").value})});
+  const j=await r.json();out.textContent="";
+  if(!r.ok){add("p",j.error||"Something went wrong. Please try again.");return}
+  add("h3","Order "+j.ref);
+  if(j.status!=="PAID"){add("p","We have not received payment confirmation for this order yet.");return}
+  j.items.forEach(i=>add("div",i.qty+" x "+i.n));
+  if(!j.parcels.length)add("p","Your order has been received and is being processed. We will email you when it ships.");
+  j.parcels.forEach((p,i)=>{
+   add("h4","Parcel "+(i+1)+": "+p.status);
+   if(p.tracking){add("div","Tracking number: "+p.tracking);
+    if(/^https:\/\//.test(p.url)){const a=add("a","Track this parcel",out);a.href=p.url;a.target="_blank";a.rel="noopener"}}
+  });
+ }catch(e){out.textContent="";add("p","We could not reach the order system. Please try again in a minute.")}
+};
+</script></body></html>
