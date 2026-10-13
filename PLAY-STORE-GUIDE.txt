@@ -1,0 +1,126 @@
+KFE ANDROID APP - GOOGLE PLAY GUIDE
+===================================
+
+WHAT THIS IS
+The KFE app is your website packaged as an Android app (a "Trusted Web Activity"). It opens your shop full screen with no browser bar. Whatever you change on the website shows up in the app automatically, so you do not need to publish a new app version for normal updates.
+Your website already has everything the app needs: an app manifest, icons, an offline page and a service worker.
+
+BEFORE YOU SUBMIT (Google reviewers will open the app, so these matter)
+[ ] Render backend on a paid plan and DATABASE_URL set (so products never show "Loading" for a minute)
+[ ] PayFast account verified, and one real test order completed end to end
+[ ] The site only says what is true (CJ has confirmed whether the shipping price includes duty and VAT)
+[ ] Restricted products removed or approved (smart watches, earbuds, batteries etc. may need NRCS/ICASA approval)
+[ ] Emails working (SMTP settings in Render)
+
+STEP 1 - GOOGLE PLAY DEVELOPER ACCOUNT (use your company)
+Because NXTDRV EV (Pty) Ltd is a registered company, register an ORGANISATION account. Organisation accounts do not need the 12-testers-for-14-days test that new personal accounts must do.
+1. Get a D-U-N-S number for NXTDRV EV (Pty) Ltd. It is free. Google's registration page has a lookup/request link. It can take about 5 business days, sometimes up to 30.
+2. Go to play.google.com/console and sign up as an Organisation. The one-time registration fee is US$25.
+3. Verify your identity and the company when asked (CIPC documents, director ID, phone and email).
+Do this first, because verification takes the longest.
+
+STEP 2 - PUT THE APP FILES ON YOUR WEBSITE
+Upload the files from kfe-app-update.zip to your kfe-site repo on GitHub: index.html, manifest.webmanifest, sw.js, offline.html, the icons folder, and the empty file .nojekyll.
+Tip: .nojekyll must exist, or GitHub hides the .well-known folder that Step 4 needs.
+Then open https://pwabuilder.com, enter https://kfe.nextdriveev.co.za and click Start. It should show your manifest and service worker as found.
+
+STEP 3 - BUILD THE ANDROID FILE (free, no software to install)
+1. On the pwabuilder.com report page click "Package for stores", then Android.
+2. Fill in:
+   Package ID ........ za.co.nextdriveev.kfe   (it can never be changed later)
+   App name .......... KFE - Kits FastExpress
+   Launcher name ..... KFE
+   App version ....... 1.0.0
+   Version code ...... 1
+   Host .............. kfe.nextdriveev.co.za
+   Start URL ......... /
+   Display mode ...... Standalone
+   Theme / background / navigation colour ... #0f2b4a
+   Notifications ..... Off
+   Signing key ....... Create new
+3. Click Generate and download the zip. It should contain an .aab file, a signing key file and a text file with the key password and fingerprints (file names may differ slightly).
+4. BACK UP THE SIGNING KEY AND PASSWORDS somewhere safe (not on GitHub). If you lose them you cannot update the app.
+
+STEP 4 - UPLOAD TO GOOGLE PLAY AND CONNECT THE APP TO YOUR WEBSITE
+1. In Play Console choose Create app: name "KFE - Kits FastExpress", language English (South Africa), App, Free.
+2. Go to Test and release > Testing > Internal testing > Create release. Upload the .aab file. Accept Play App Signing when asked.
+3. Open Test and release > Setup > App signing (or App integrity). Copy the SHA-256 certificate fingerprint of the "App signing key".
+4. In GitHub open your kfe-site repo > Add file > Create new file. Name it exactly: .well-known/assetlinks.json
+   Paste the content of assetlinks.template.json, replacing the two placeholders with:
+   - the Play App Signing SHA-256 from step 3
+   - the upload key SHA-256 from the PWABuilder text file
+5. Check https://kfe.nextdriveev.co.za/.well-known/assetlinks.json opens and shows the JSON.
+6. Add yourself as an internal tester, install the app from the testing link, and open it. It must open full screen with NO address bar. If you see a bar at the top, the fingerprints in assetlinks.json do not match.
+
+STEP 5 - STORE LISTING (Grow users > Store presence > Main store listing)
+App name ............. KFE - Kits FastExpress
+Short description .... Shop imported electronics, home and fashion. Prices in rand, delivered to you.
+Full description ..... (see below)
+App icon ............. play-store-icon-512.png
+Feature graphic ...... feature-graphic-1024x500.png
+Phone screenshots .... at least 2. Open your site in the installed app and take screenshots of: the home page, a product page with options, the cart, and Track order. (Play currently asks for 2 to 8, in 9:16 or 16:9. Check Play Console for the exact limits.)
+Category ............. Shopping
+Contact email ........ nextdriveev1@gmail.com
+Phone ................ +27 67 772 2105
+Website .............. https://kfe.nextdriveev.co.za
+Privacy policy URL ... https://kfe.nextdriveev.co.za/privacy.html
+
+FULL DESCRIPTION (copy and paste)
+-----------------------------------------------
+KFE (Kits FastExpress) lets you shop imported products from China and have them delivered to your door in South Africa.
+
+WHAT YOU CAN DO
+- Browse electronics, home and kitchen items, tools and fashion
+- See prices in rand, with shipping included
+- Choose colours and sizes, and view photos and descriptions
+- Pay securely by card or instant EFT through PayFast
+- Track your order with your order reference and email
+- Get email updates when your order is confirmed and when it ships
+
+HOW IT WORKS
+1. Pick your product and options.
+2. Pay securely through PayFast.
+3. We place your order with our China fulfilment partner.
+4. Your parcel is shipped to South Africa. The estimated delivery time is shown on each product and is usually several weeks.
+
+RETURNS AND REFUNDS
+We follow South African consumer law. Our Returns and Refunds policy, Terms and Privacy Policy are available in the app.
+
+ABOUT US
+KFE is a trading name of NXTDRV EV (Pty) Ltd, registered in South Africa (2026/492988/07).
+Questions? Email nextdriveev1@gmail.com or call 067 772 2105.
+-----------------------------------------------
+Only add "Prices include shipping, import duty and VAT" once CJ has confirmed that is true.
+
+STEP 6 - APP CONTENT (Policy > App content)
+Privacy policy ....... the URL above
+Ads .................. No ads
+App access ........... All features available without logging in
+Target audience ...... 18 and over (the privacy policy says the shop is for 18+)
+Content rating ....... Answer the questionnaire honestly (no violence, no user-generated content). A shop like this normally rates for everyone.
+Government / news / health / financial-services declarations ... No
+Data safety .......... see the table below
+
+DATA SAFETY ANSWERS (data the app/website collects)
+Name ................. collected, needed to deliver the order
+Email address ........ collected, order updates
+Phone number ......... collected, delivery
+Address .............. collected, delivery
+ID/passport number ... collected (only the last 4 characters are kept); choose the closest "Other info" or "Government ID" type
+Purchase history ..... collected, your order records
+Card details ......... NOT collected by KFE (entered on PayFast's page)
+Shared with .......... PayFast (payments), your China fulfilment partner (name, address, phone, email), carriers/customs
+Encrypted in transit . Yes (https)
+Users can ask for deletion ... Yes, by emailing nextdriveev1@gmail.com
+Data safety is a legal declaration. If anything changes (for example you add analytics), update it.
+
+STEP 7 - GO LIVE
+1. When internal testing works, create a Production release with the same .aab (or use "Promote release").
+2. Submit for review. Reviews often take a few days for a new app, but can take longer.
+3. Google may reject apps that only wrap a website with nothing extra. KFE is a full shop with its own product pages, order tracking, shortcuts and offline screen, but approval is Google's decision and cannot be guaranteed.
+
+GOOD TO KNOW
+- PayFast's payment page opens in a Chrome tab on top of the app. When you finish paying you see the success page there, and closing the tab returns you to the app.
+- Physical goods can be paid for outside Google Play (Google Play billing is for digital goods).
+- Website changes appear in the app automatically. You only publish a new app version to change the icon, name or colours.
+- Keep the signing key safe, and keep your Play Console details (company, address, contact) up to date.
