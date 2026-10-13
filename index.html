@@ -2,6 +2,7 @@
 <html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>KFE – Kits FastExpress</title>
+<link rel="manifest" href="/manifest.webmanifest"><meta name="theme-color" content="#0f2b4a"><link rel="icon" href="/icons/icon-192.png"><link rel="apple-touch-icon" href="/icons/apple-touch-icon.png">
 <style>
 :root{--bg:#f2f3f5;--card:#fff;--tx:#161a21;--mu:#6a7380;--ac:#f4511e;--nv:#0f2b4a;--bd:#e3e6ea;--gr:#0a8f55;--ye:#ffb400;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px)}
 @media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0e1217;--card:#171d25;--tx:#eef1f5;--mu:#9aa5b5;--bd:#27303b;--nv:#0a1a2e}}
@@ -90,7 +91,7 @@ input,select.f{width:100%;font:inherit;padding:9px;border:1px solid var(--bd);bo
 <div class="step"><div class="dot d"></div>Your parcel is packed and shipped from China to South Africa</div>
 <div class="step"><div class="dot d"></div>Shipped, cleared by SARS, delivered to your door</div>
 <p class="mu">Prototype: prices, FX (US$1 = R18.20) and duty rates are estimates.</p></div>
-<div class="ft">© KFE – Kits FastExpress · a trading name of NXTDRV EV (Pty) Ltd · Reg. 2026/492988/07<br><a href="terms.html" style="color:inherit">Terms</a> · <a href="privacy.html" style="color:inherit">Privacy (POPIA)</a> · <a href="returns.html" style="color:inherit">Returns</a> · <a href="contact.html" style="color:inherit">Contact</a> · <a href="track.html" style="color:inherit">Track order</a></div>
+<div class="ft">© KFE – Kits FastExpress · a trading name of NXTDRV EV (Pty) Ltd · Reg. 2026/492988/07<br><a href="terms.html" style="color:inherit">Terms</a> · <a href="privacy.html" style="color:inherit">Privacy (POPIA)</a> · <a href="shipping.html" style="color:inherit">Shipping</a> · <a href="returns.html" style="color:inherit">Returns</a> · <a href="contact.html" style="color:inherit">Contact</a> · <a href="track.html" style="color:inherit">Track order</a></div>
 </main>
 <div id="dr" onclick="if(event.target===this)closeCart()"><div id="sh"><div class="row"><h3 style="margin:0">Your cart</h3><button class="o" onclick="closeCart()">Close</button></div><div id="it"></div><div id="sm"></div>
 <div id="co" style="display:none"><h3>Secure checkout</h3>
@@ -195,5 +196,5 @@ if(j.mode!=="cj"){P.length=0;P.push(...DEMO);LOADING=false;show();return}
 if(j.loading&&!j.products.length){setTimeout(()=>loadCatalog(n),8000);return}
 P.length=0;j.products.forEach(x=>P.push(toP(x)));try{localStorage.setItem("kfe_p",JSON.stringify({t:Date.now(),p:j.products}))}catch(e){}LOADING=false;show();if(j.loading)setTimeout(()=>loadCatalog(0),15000)}
 catch(e){if(n<6)setTimeout(()=>loadCatalog(n+1),8000);else{LOADING=false;if(!P.length)$("g").innerHTML='<p class="mu">Could not load products. Please refresh the page.</p>'}}}
-tick();setInterval(tick,1000);if(API){P.length=0;try{const c=JSON.parse(localStorage.getItem("kfe_p")||"null");if(c&&Date.now()-c.t<6048e5&&Array.isArray(c.p)&&c.p.length){c.p.forEach(x=>P.push(toP(x)));LOADING=false}}catch(e){}}show();loadCatalog();
+tick();setInterval(tick,1000);if(API){P.length=0;try{const c=JSON.parse(localStorage.getItem("kfe_p")||"null");if(c&&Date.now()-c.t<6048e5&&Array.isArray(c.p)&&c.p.length){c.p.forEach(x=>P.push(toP(x)));LOADING=false}}catch(e){}}show();loadCatalog();if("serviceWorker" in navigator)addEventListener("load",()=>navigator.serviceWorker.register("/sw.js").catch(()=>{}));
 </script></body></html>
