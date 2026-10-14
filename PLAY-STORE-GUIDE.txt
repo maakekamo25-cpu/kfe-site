@@ -8,7 +8,7 @@ Your website already has everything the app needs: an app manifest, icons, an of
 BEFORE YOU SUBMIT (Google reviewers will open the app, so these matter)
 [ ] Render backend on a paid plan and DATABASE_URL set (so products never show "Loading" for a minute)
 [ ] PayFast account verified, and one real test order completed end to end
-[ ] The site only says what is true (CJ has confirmed whether the shipping price includes duty and VAT)
+[ ] The site only says what is true (CJ confirmed shipping prices do NOT include SA duty and VAT, so never claim they do)
 [ ] Restricted products removed or approved (smart watches, earbuds, batteries etc. may need NRCS/ICASA approval)
 [ ] Emails working (SMTP settings in Render)
 
@@ -90,7 +90,7 @@ ABOUT US
 KFE is a trading name of NXTDRV EV (Pty) Ltd, registered in South Africa (2026/492988/07).
 Questions? Email nextdriveev1@gmail.com or call 067 772 2105.
 -----------------------------------------------
-Only add "Prices include shipping, import duty and VAT" once CJ has confirmed that is true.
+Do not say duty or VAT is included. CJ has confirmed their shipping price excludes South African duty and VAT.
 
 STEP 6 - APP CONTENT (Policy > App content)
 Privacy policy ....... the URL above
