@@ -71,7 +71,7 @@ KFE (Kits FastExpress) lets you shop imported products from China and have them 
 
 WHAT YOU CAN DO
 - Browse electronics, home and kitchen items, tools and fashion
-- See prices in rand, with shipping included
+- See prices in rand, and your shipping cost before you pay
 - Choose colours and sizes, and view photos and descriptions
 - Pay securely by card or instant EFT through PayFast
 - Track your order with your order reference and email
